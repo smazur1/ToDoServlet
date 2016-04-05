@@ -56,45 +56,74 @@ th {
 <form action="ToDoServlet" method="post">
 		<p>
 		<br/><h3>Update List</h3>
-		To update an Assignment Grade, enter the Assignment ID and the new Grade. 
+		To update a To Do Status, enter the To Do ID and the Status ID. 
 			<br/><br/>
 			
-			<input type="hidden" id="studentid" name="studentid" value="${studentid}">
-			<label for="assignmentid">Enter Assignment ID:</label> 
-				<input id="id" name="id" value="${param.id}">
-				
-				
-				<label for="grade">Enter Grade:</label> 
-				<input id="grade" name="grade" value="${param.grade}">
-				<input type="hidden" name="option" value="7">
-				
-				<input type="submit">
+			<input type="hidden" id="userid" name="userid" value="${userid}">
+			
+			<label for="todoid">Enter To Do ID:</label> 
+			<input id="todoid" name="todoid" value="${todoid}">
+						
+			<label for="statusid">Enter Status ID:</label> 
+			<input id="statusid" name="statusid" value="${statusid}">
+			
+			<input type="hidden" name="option" value="2">
+			
+			<input type="submit">
 		</p>
 	</form>
 
 <form action="ToDoServlet" method="post">
 		<p>
 		<br/><h3>Insert Item</h3>
-		To insert an Assignment, enter the following information. 
+		To insert an To Do Item, enter the following information. 
 			<br/><br/>
 			
-				<input type="hidden" id="studentid" name="studentid" value="${studentid}">
+				<input type="hidden" id="userid" name="userid" value="${userid}">
 				
-				<label for="assignment">Enter Assignment Name:</label> 
-				<input type="text" id="assignment" name="assignment" value="${param.assignment}">
-				<br/>
-				<label for="type">Enter Assignment Type:</label> 
-				<input type="text" id="type" name="type" value="${param.type}">
-				<br/>
-				<label for="grade">Enter Grade:</label> 
-				<input id="grade" name="grade" value="${param.grade}">
+						
+			<label for="todotype">Enter Type:</label> 
+			<input id="todotype" name="todotype" value="${todotype}">
+			
+			<label for="tododesc">Enter Description:</label> 
+			<input id="tododesc" name="tododesc" value="${tododesc}">
 				
-				<input type="hidden" name="option" value="8">
+			<label for="priority">Enter Priority:</label> 
+			<input id="priority" name="priority" value="${priority}">
+			
+			<label for="year">Year: </label> 
+			<input id="year" name="year" value="${year}">
+			
+			<label for="month">Month: </label> 
+			<input id="month" name="month" value="${month}">
+			
+			<label for="day">Day: </label> 
+			<input id="day" name="day" value="${day}">
+			
+			
+			<label for="statusid">Enter Status ID:</label> 
+			<input id="statusid" name="statusid" value="${statusid}">
+			
+			<input type="hidden" name="option" value="3">
 				
-				<input type="submit">
+			<input type="submit">
 		</p>
 	</form>
+<form action="ToDoServlet" method="post">
+		<p>
+		<br/><h3>Display Completed Items</h3>
+		Display completed items for all users
+			<br/><br/>
+			
+			<input type="hidden" id="userid" name="userid" value="${userid}">
+			
 
+			
+			<input type="hidden" name="option" value="4">
+			
+			<input type="submit">
+		</p>
+	</form>
 
 
 </body>

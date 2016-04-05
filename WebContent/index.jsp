@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<h2>Student Grades</h2>
+<h2>To Do Lists</h2>
 	<form action="ToDoServlet" method="post">
 		<p>
 			<label for="username">Enter username:</label> 

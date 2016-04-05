@@ -1,6 +1,8 @@
 package customcode;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -53,15 +55,15 @@ public class ToDoServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 
 		if (request.getParameter("option").equals("1")) {
-			
+
 			String username = request.getParameter("username");
 			System.out.println("user = " + username);
 			long userid = ProcessToDo.getUserByName(username);
 			if (userid == 0) {
-			
-			   System.out.println("userid for " + username + " not found");
+
+				System.out.println("userid for " + username + " not found");
 			} else {
-				
+
 				List<Todo> todos = null;
 
 				todos = ProcessToDo.getListById(userid);
@@ -69,78 +71,73 @@ public class ToDoServlet extends HttpServlet {
 				session.setAttribute("username", username);
 				session.setAttribute("userid", userid);
 				session.setAttribute("todolist", todos);
+				
 				request.getRequestDispatcher("/output.jsp").forward(request, response);
-				
-				
+
 			}
-			
-			
-		
-		} 
-		
-		
-/*		
+
+		}
+
 		else if (request.getParameter("option").equals("2")) {
 
-			String type = request.getParameter("type");
+			long userid = Long.parseLong(request.getParameter("userid"));
+			long todoid = Long.parseLong(request.getParameter("todoid"));
 
+			long statusid = Long.parseLong(request.getParameter("statusid"));
+
+			List<Todo> todolist = null;
+
+			ProcessToDo.updateToDo(todoid, statusid);
+			System.out.println("after update");
+
+	    	todolist = ProcessToDo.getListById(userid);
 			
-			List<Studentgrade> students = null;
-
-			students = ProcessGrades.getStudentGradeByType(type);
-			//
-
-			session.setAttribute("assignments", students);
+    //        request.setAttribute("todoid", "");
+    //        session.setAttribute("todoid", "");
+    //        request.setAttribute("statusid", "");
+			session.setAttribute("todolist", todolist);
+		
 			request.getRequestDispatcher("/output.jsp").forward(request, response);
 
 		} else if (request.getParameter("option").equals("3")) {
 
-			int studentid = Integer.parseInt(request.getParameter("studentid"));
-			String type = request.getParameter("type");
-			List<Studentgrade> students = null;
+			//
 
-			students = ProcessGrades.getStudentGradeByIDAndType(studentid, type);
+			long userid = Long.parseLong(request.getParameter("userid"));
+			long statusid = Long.parseLong(request.getParameter("statusid"));
+			String todotype = request.getParameter("todotype");
+			String tododesc = request.getParameter("tododesc");
+			long priority = Long.parseLong(request.getParameter("priority"));
 
-			session.setAttribute("assignments", students);
-			request.getRequestDispatcher("/output.jsp").forward(request, response);
-
-		} else if (request.getParameter("option").equals("7")) {
-
-			int id = Integer.parseInt(request.getParameter("id"));
-			int grade = Integer.parseInt(request.getParameter("grade"));
-			int count = 0;
-			System.out.println("student id = " + request.getParameter("studentid"));
-
-			int studentid = Integer.parseInt(request.getParameter("studentid"));
-			List<Studentgrade> students = null;
-
-			count = ProcessGrades.updateGrade(id, grade);
-			System.out.println("count = " + count);
-			students = ProcessGrades.getStudentGradeByID(studentid);
-
-			session.setAttribute("assignments", students);
-			request.getRequestDispatcher("/output.jsp").forward(request, response);
-
-		} else if (request.getParameter("option").equals("8")) {
-
-	//		int studentid = Integer.parseInt(request.getParameter("id"));
-			int grade = Integer.parseInt(request.getParameter("grade"));
-			int count = 0;
-			System.out.println("student id = " + request.getParameter("studentid"));
-			String assignment = request.getParameter("assignment");
-			String assigntype = request.getParameter("type");
-
-			int studentid = Integer.parseInt(request.getParameter("studentid"));
-			List<Studentgrade> students = null;
-
-			ProcessGrades.insertGrade(studentid, assignment, assigntype, grade);
-			System.out.println("count = " + count);
+			int year = Integer.parseInt(request.getParameter("year"));
+			int month = Integer.parseInt(request.getParameter("month"));
+			int day = Integer.parseInt(request.getParameter("day"));
+			GregorianCalendar duedate = new GregorianCalendar(year, month, day);
 			
-			students = ProcessGrades.getStudentGradeByID(studentid);
+			ProcessToDo.insertTodo(userid, todotype, tododesc, statusid, duedate.getTime(), priority);
+			System.out.println("count = ");
 
-			session.setAttribute("assignments", students);
+			List<Todo> todos = null;
+
+			todos = ProcessToDo.getListById(userid);
+
+			session.setAttribute("userid", userid);
+			session.setAttribute("todolist", todos);
 			request.getRequestDispatcher("/output.jsp").forward(request, response);
-	}  
-	*/
-}
+
+		} else if (request.getParameter("option").equals("4")) {
+			// show comleted list
+
+			List<Todo> todos = null;
+
+			todos = ProcessToDo.getCompletedList();
+
+			// session.setAttribute("username", username);
+			// session.setAttribute("userid", userid);
+			session.setAttribute("todolist", todos);
+			request.getRequestDispatcher("/output2.jsp").forward(request, response);
+
+		}
+
+	}
 }

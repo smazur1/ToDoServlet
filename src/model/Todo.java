@@ -22,7 +22,7 @@ public class Todo implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date duedate;
 
-	private BigDecimal priority;
+	private long priority;
 
 	@Temporal(TemporalType.DATE)
 	private Date statusdate;
@@ -60,11 +60,11 @@ public class Todo implements Serializable {
 		this.duedate = duedate;
 	}
 
-	public BigDecimal getPriority() {
+	public long getPriority() {
 		return this.priority;
 	}
 
-	public void setPriority(BigDecimal priority) {
+	public void setPriority(long priority) {
 		this.priority = priority;
 	}
 
